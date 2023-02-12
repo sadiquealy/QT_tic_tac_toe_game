@@ -1,31 +1,41 @@
+//
+//  main.cpp
+//
+//  Tic Tac Toe Game implementation between Player and Computer
+//  No License @ Sadique Ali , Embramannil
+//  blog:https://cppcodetips.wordpress.com/
+//
+
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <QQuickView>
 #include <QQmlContext>
+#include <QQuickView>
 #include "gameboard.h"
 
-const int NUM_ROW=4;
-const int NUM_COL=4;
-int main(int argc, char *argv[])
+const int NUM_ROW = 4;
+const int NUM_COL = 4;
+int       main(int argc, char* argv[])
 {
-     qDebug()<<"Starting Application";
-    QGuiApplication app(argc, argv);
-    GameBoard *game_board  =new GameBoard(NUM_ROW,NUM_COL);
+    qDebug() << "Starting Application";
+    QGuiApplication       app(argc, argv);
+    GameBoard*            game_board = new GameBoard(NUM_ROW, NUM_COL);
     QQmlApplicationEngine engine;
-    const QUrl url("qrc:/qml/main.qml");
+    const QUrl            url("qrc:/qml/main.qml");
 
-    //QQuickView * view=new QQuickView();
-    QQmlContext *context=engine.rootContext();
-    context->setContextProperty("_game_board",game_board);
+    // QQuickView * view=new QQuickView();
+    QQmlContext* context = engine.rootContext();
+    context->setContextProperty("_game_board", game_board);
 
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
+    QObject::connect(
+        &engine, &QQmlApplicationEngine::objectCreated, &app,
+        [url](QObject* obj, const QUrl& objUrl)
+        {
+            if (!obj && url == objUrl)
+                QCoreApplication::exit(-1);
+        },
+        Qt::QueuedConnection);
     engine.load(url);
-    QObject::connect(game_board, &GameBoard::cellClick,
-                    game_board,&GameBoard::cellValueChanged);
+    QObject::connect(game_board, &GameBoard::cellClick, game_board, &GameBoard::cellValueChanged);
 
-            return app.exec();
+    return app.exec();
 }

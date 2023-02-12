@@ -9,7 +9,6 @@ Window {
     property list<Rectangle> rectList
     property int numRows: _game_board.rows
     property int numColums: _game_board.columns
-    property variant board: _game_board.board
     property bool enableButton: false
     property int gameOver: 0
     Connections {
@@ -74,7 +73,6 @@ Window {
                         resetCells()
                         showMessage("Player Turn; Click on your cell")
                     } else {
-                        console.log("board[0][0] value is", board[0][0])
                         enableButton = false
                         _game_board.playComputer()
                     }
@@ -143,10 +141,6 @@ Window {
                                 var row = Math.floor(
                                             index_field / _game_board.columns)
                                 var col = index_field % _game_board.columns
-                                board[row][col] = 1
-                                console.log("Row is ", row, "column is", col,
-                                            "value is", board[row][col])
-                                _game_board.board = board
                                 _game_board.onCellClick(row, col)
                                 enableButton = true
                             }
