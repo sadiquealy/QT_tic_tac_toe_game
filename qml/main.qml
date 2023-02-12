@@ -159,7 +159,7 @@ Window {
             width: parentRectangle.width
             height: (parentRectangle.height * 2 / 10)
             border.color: "black"
-            radius: 10
+            //radius: 10
             Text {
                 id: messageTxt
                 text: "Player Turn; Click on your cell"
